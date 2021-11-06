@@ -8,6 +8,9 @@ namespace sedc_server_try_one
     {
         internal static Request Parse(string input)
         {
+            Console.WriteLine(input);
+
+
             var lines = input.Split("\r\n");
             var requestLine = lines[0];
 
@@ -15,6 +18,8 @@ namespace sedc_server_try_one
             var rlMatch = rlRegex.Match(requestLine);
 
             var headerLines = lines.Skip(1).TakeWhile(line => line != "");
+            
+
             var hlRegex = new Regex(@"^([a-zA-Z0-9-]+):\s(.+)$");
             var result = new Request
             {

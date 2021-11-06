@@ -30,7 +30,11 @@ namespace Sedc.Server.Core
                     Status = Status.BadRequest
                 };
             }
-            string filename = Path.Combine(BasePath, request.Address.Path[0]);
+            //string filename = Path.Combine(BasePath, request.Address.Path[0]);
+            //string filename = Path.Combine(BasePath, Path.Combine((string[])request.Address.Path));
+
+            string filePath = Path.Combine(request.Address.Path.ToArray());
+            string filename = Path.Combine(BasePath, filePath);
             if (!File.Exists(filename))
             {
                 return new TextResponse
@@ -40,7 +44,7 @@ namespace Sedc.Server.Core
             }
 
             var extension = Path.GetExtension(filename);
-
+                 
             if (textExtensions.Contains(extension))
             {
                 var output = File.ReadAllText(filename);
